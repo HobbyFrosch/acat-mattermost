@@ -9,7 +9,7 @@ use Monolog\Handler\AbstractProcessingHandler;
 /**
  *
  */
-class MonologHandler extends AbstractProcessingHandler
+class MattermostHandler extends AbstractProcessingHandler
 {
     /**
      * @var string
