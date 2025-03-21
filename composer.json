@@ -12,10 +12,15 @@
   "require": {
     "php": ">=8.4",
     "monolog/monolog": "~3.8.1",
-    "ext-curl": "*"
+    "guzzlehttp/guzzle": "^7.9.2",
   },
   "require-dev": {
     "phpunit/phpunit": "^12.0.9"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Test\\": "test/"
+    }
   },
   "autoload": {
     "psr-4": {

@@ -4,6 +4,8 @@ namespace ACAT\Mattermost;
 
 use Psr\Log\LogLevel;
 use Monolog\LogRecord;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Monolog\Handler\AbstractProcessingHandler;
 
 /**
@@ -16,6 +18,8 @@ class MattermostHandler extends AbstractProcessingHandler
      */
     private string $webHookUrl;
 
+    private Client $client;
+
     /**
      * @param   string  $webHookUrl
      * @param   string  $level
@@ -25,25 +29,21 @@ class MattermostHandler extends AbstractProcessingHandler
     {
         parent::__construct($level, $bubble);
         $this->webHookUrl = $webHookUrl;
+        $this->client = new Client();
     }
 
     /**
-     * @param LogRecord $record
+     * @throws GuzzleException
      * @return void
+     *
+     * @param   LogRecord  $record
      */
     public function write(LogRecord $record): void
     {
-        $payload = json_encode(['text' => $record['formatted']]);
-
-        $ch = curl_init($this->webHookUrl);
-
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, ['payload' => $payload]);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-
-        curl_exec($ch);
-        curl_close($ch);
+        $this->client->request('POST', $this->webHookUrl, [
+            'form_params' => [
+                'payload' => json_encode(['text' => $record['formatted']])
+            ]
+        ]);
     }
 }
