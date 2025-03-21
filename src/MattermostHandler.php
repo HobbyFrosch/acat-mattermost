@@ -21,7 +21,7 @@ class MattermostHandler extends AbstractProcessingHandler
      * @param   string  $level
      * @param   bool    $bubble
      */
-    public function __construct(string $webHookUrl, string $level = LogLevel::DEBUG, bool $bubble = true)
+    public function __construct(string $webHookUrl, $level = LogLevel::CRITICAL, bool $bubble = true)
     {
         parent::__construct($level, $bubble);
         $this->webHookUrl = $webHookUrl;
