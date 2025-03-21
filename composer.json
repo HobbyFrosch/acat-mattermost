@@ -1,0 +1,25 @@
+{
+  "name": "acat/mattermost",
+  "description": "Handle logs to Mattermost",
+  "version" : "0.0.1",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Ronny Kraemer",
+      "email": "ronny.kraemer@uni-bremen.de"
+    }
+  ],
+  "require": {
+    "php": ">=8.4",
+    "monolog/monolog": "~3.8.1",
+    "guzzlehttp/guzzle": "^7.9.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^12.0.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "ACAT\\Mattermost\\": "src/"
+    }
+  }
+}
