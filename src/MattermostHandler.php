@@ -40,10 +40,10 @@ class MattermostHandler extends AbstractProcessingHandler
      */
     public function write(LogRecord $record): void
     {
-        $this->client->request('POST', $this->webHookUrl, [
+        $this->client->requestAsync('POST', $this->webHookUrl, [
             'form_params' => [
                 'payload' => json_encode(['text' => $record['formatted']])
             ]
-        ]);
+        ])->wait(false);
     }
 }
